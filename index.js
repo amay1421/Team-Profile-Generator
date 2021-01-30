@@ -1,6 +1,11 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+const Engineer = require('./lib/Engineer')
+const Intern = require('./lib/Intern')
+const Manager = require('./lib/Manager')
+
+
 
 //Ask Questions for employee > .then >> create Employee object >> 
             //type of employee :
@@ -9,9 +14,8 @@ const inquirer = require("inquirer");
 
 //write file with objects you created.
 
-getEmployeeInformation () {
+const getEngineerInformation = () => {
   
-    let employeeInformation =
     inquirer
         .prompt([
             {
@@ -31,9 +35,87 @@ getEmployeeInformation () {
              },
              {
                  type: "input",
-                name: "title",
-                message: "Please enter a title:"
+                name: "github",
+                message: "Please enter a github username:"
              }
-    ]);
+    ]).then((answers) => {
+        const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+
+        console.log(newEngineer)
+
+        employeeType();
+    })
 
 }
+
+const getInternInformation = () => {
+  
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "id",
+                message: "Please enter an ID:"
+             },
+            {
+                type: "input",
+                name: "name",
+                message: "Please enter a name:"
+             },
+             {
+                type: "input",
+                name: "email",
+                message: "Please enter an email:"
+             },
+             {
+                 type: "input",
+                name: "school",
+                message: "Please enter a school:"
+             }
+    ]).then((answers) => {
+        const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school)
+
+        console.log(newIntern)
+
+        employeeType();
+    })
+
+}
+
+
+const employeeType = () => {
+  
+    inquirer
+        .prompt([
+            {
+             type: "list",
+               name: "employeeType",
+               message: "Please enter which employee type:",
+               choices: ["Manager", "Engineer", "Intern", "Exit"]
+            }
+        ]) .then((answer) => {
+
+            switch (answer.employeeType) {
+                case "Engineer" : getEngineerInformation () 
+                break;
+                case "Intern" : getInternInformation () 
+                break;
+                case "Manager" : getManagerInformation () 
+                break
+            }
+    
+        })
+    }
+
+
+    employeeType();
+
+
+/////////
+
+// const newEmployee = new Employee("John", 5, "john@gmail.com");
+
+// const newEngineer = new Engineer("John", 5, "john@john.com", "john20")
+
+
+// console.log(newEngineer.getRole())
