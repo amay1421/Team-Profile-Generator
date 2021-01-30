@@ -7,7 +7,7 @@ class Manager extends Employee {
 
     }
     getRole = () => "Manager";
-    getOfficeNumber = () => "Office Number";
+    getOfficeNumber = () => {return this.officeNumber;}
 
 }
 
