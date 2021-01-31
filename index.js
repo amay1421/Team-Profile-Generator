@@ -6,6 +6,8 @@ const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
 
+var team = [];
+
 
 
 //Ask Questions for employee > .then >> create Employee object >> 
@@ -41,7 +43,7 @@ const getEngineerInformation = () => {
              }
     ]).then((answers) => {
         const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
-
+        team.push(newEngineer)
         employeeType();
     })
 
@@ -73,7 +75,7 @@ const getManagerInformation = () => {
              }
     ]).then((answers) => {
         const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-
+        team.push(newManager)
         employeeType();
     })
 
@@ -105,6 +107,7 @@ const getInternInformation = () => {
              }
     ]).then((answers) => {
         const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school)
+        team.push(newIntern)
 
         employeeType();
     })
@@ -130,7 +133,7 @@ const employeeType = () => {
                 break;
                 case "Manager" : getManagerInformation () 
                 break
-                case "Exit" : generateTeam ()
+                case "Exit" : fs.writeFileSync('./Output/test.html', html(team))
             }
     
         })
@@ -138,13 +141,8 @@ const employeeType = () => {
 
 
     employeeType();
- 
-    // inquirer.prompt(getEngineerInformation).then((answers)) => {
-    //     fs.writeFileSync('./Output/page-template.js',generateTeam(answers))
-    // }
-
-    var team = [getEngineerInformation, getInternInformation, getManagerInformation]
-
+    // fs.writeFileSync('./Output/test.html',generateTeam(answers))
+    
 /////////
 
 // const newEmployee = new Employee("John", 5, "john@gmail.com");
