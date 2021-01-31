@@ -1,5 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const html = require('./src/page-template')
 
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
@@ -110,7 +111,6 @@ const getInternInformation = () => {
 
 }
 
-
 const employeeType = () => {
   
     inquirer
@@ -134,11 +134,16 @@ const employeeType = () => {
             }
     
         })
-    }
+    };
 
 
     employeeType();
+ 
+    // inquirer.prompt(getEngineerInformation).then((answers)) => {
+    //     fs.writeFileSync('./Output/page-template.js',generateTeam(answers))
+    // }
 
+    var team = [getEngineerInformation, getInternInformation, getManagerInformation]
 
 /////////
 
