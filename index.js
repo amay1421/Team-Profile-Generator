@@ -41,7 +41,37 @@ const getEngineerInformation = () => {
     ]).then((answers) => {
         const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
 
-        console.log(newEngineer)
+        employeeType();
+    })
+
+}
+
+const getManagerInformation = () => {
+  
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "id",
+                message: "Please enter an ID:"
+             },
+            {
+                type: "input",
+                name: "name",
+                message: "Please enter a name:"
+             },
+             {
+                type: "input",
+                name: "email",
+                message: "Please enter an email:"
+             },
+             {
+                 type: "input",
+                name: "officeNumber",
+                message: "Please enter an office number:"
+             }
+    ]).then((answers) => {
+        const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
 
         employeeType();
     })
@@ -75,8 +105,6 @@ const getInternInformation = () => {
     ]).then((answers) => {
         const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school)
 
-        console.log(newIntern)
-
         employeeType();
     })
 
@@ -102,6 +130,7 @@ const employeeType = () => {
                 break;
                 case "Manager" : getManagerInformation () 
                 break
+                case "Exit" : generateTeam ()
             }
     
         })
